@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
@@ -15,7 +17,7 @@ class _MyMapViewState extends State<MyMapView> {
   Set<Marker> markers = {};
   String address = "";
   LatLng? currentLocation;
-
+  final  completer = Completer<GoogleMapController>();
   @override
   void initState() {
     super.initState();
@@ -74,8 +76,11 @@ class _MyMapViewState extends State<MyMapView> {
       markerId: MarkerId("location"),
       position: LatLng(location.latitude, location.longitude),
     ));
-
+    currentLocation= LatLng(location.latitude, location.longitude);
     setState(() {});
+    final mapController = await completer.future;
+    await mapController.animateCamera(CameraUpdate.newLatLng(currentLocation!));
+
   }
 
   @override
@@ -87,8 +92,9 @@ class _MyMapViewState extends State<MyMapView> {
             )
           : null,
       floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          MapsLauncher.launchCoordinates(37.4220041, -122.0862462);
+        onPressed: ()async {
+          final mapController = await completer.future;
+          await mapController.animateCamera(CameraUpdate.newLatLng(LatLng(37, 122)));
         },
       ),
       body: SafeArea(
@@ -98,6 +104,9 @@ class _MyMapViewState extends State<MyMapView> {
               )
             : GoogleMap(
                 markers: markers,
+                onMapCreated: (controller) {
+                  completer.complete(controller);
+                },
                 onTap: (location) async {
                   List<Placemark> marks =
                       await placemarkFromCoordinates(location.latitude, location.longitude);

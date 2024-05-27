@@ -22,6 +22,8 @@ dependencies:
   maps_launcher: ^2.2.1
   geocoding: ^3.0.0
   geolocator: ^11.1.0
+  chart_sparkline: ^1.0.15+1
+  circular_countdown_timer: ^0.2.3
 
 dev_dependencies:
   flutter_test:

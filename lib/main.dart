@@ -4,6 +4,7 @@ import 'package:movies_amit63/service_locator.dart';
 import 'package:movies_amit63/views/products/view.dart';
 
 import 'core/helper_methods.dart';
+import 'views/lines.dart';
 import 'views/my_map.dart';
 // hello amoor
 // hello amoor2
@@ -19,7 +20,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return ScreenUtilInit(
       designSize: const Size(430, 932),
-      child: const MyMapView(),
+      child: const LinesView(),
       builder: (context, child) => MaterialApp(
         title: 'Flutter Demo',
         navigatorKey: navigatorKey,
