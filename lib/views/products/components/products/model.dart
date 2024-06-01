@@ -29,6 +29,7 @@ class ProductModel {
     id = json["id"]??0;
     title = json["title"]??"";
     description = json["description"]??"";
+    // image = json["main_image"]??"";
     image = json["main_image"]??"";
     priceBefore = json["price_before_discount"]??0;
     priceAfter = json["price"]??0;

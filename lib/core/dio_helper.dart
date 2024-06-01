@@ -1,10 +1,13 @@
 import 'package:dio/dio.dart';
 
+import 'cache_helper.dart';
+
 class DioHelper {
    final _dio = Dio(BaseOptions(
     baseUrl: "https://thimar.amr.aait-d.com/api/",
     headers: {
-      "Accept":"application/json"
+      "Accept":"application/json",
+      "Authorization":"Bearer ${CacheHelper.token}"
     }
   ));
 
@@ -27,6 +30,8 @@ class DioHelper {
       return handleException(ex);
     }
   }
+
+
 
    CustomResponse handleException(DioException ex) {
     // print(ex);
